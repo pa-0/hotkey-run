@@ -8,6 +8,7 @@ namespace HotkeyRun
     // Directives
     using System;
     using System.Drawing;
+    using System.Linq;
     using System.Reflection;
     using System.Windows.Forms;
 
@@ -29,6 +30,13 @@ namespace HotkeyRun
         {
             // The InitializeComponent() call is required for Windows Forms designer support.
             InitializeComponent();
+
+            // Add keys
+            foreach (var key in Enum.GetValues(typeof(Keys)))
+            {
+                // Add to list box
+                this.keyComboBox.Items.Add(key.ToString());
+            }
 
             /* Set icons */
 
@@ -86,7 +94,14 @@ namespace HotkeyRun
         /// <param name="e">Event arguments.</param>
         private void OnOptionsToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            // TODO Add code
+            // Set tool strip menu item
+            ToolStripMenuItem toolStripMenuItem = (ToolStripMenuItem)e.ClickedItem;
+
+            // Toggle checked
+            toolStripMenuItem.Checked = !toolStripMenuItem.Checked;
+
+            // Set topmost by check box
+            this.TopMost = this.alwaysOnTopToolStripMenuItem.Checked;
         }
 
         /// <summary>

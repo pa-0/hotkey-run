@@ -11,6 +11,7 @@ namespace HotkeyRun
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
     using System.Xml.Serialization;
     using PublicDomainWeekly;
@@ -35,6 +36,46 @@ namespace HotkeyRun
         /// The settings data path.
         /// </summary>
         private string settingsDataPath = $"{Application.ProductName}-SettingsData.txt";
+
+        /// <summary>
+        /// Registers the hot key.
+        /// </summary>
+        /// <returns><c>true</c>, if hot key was registered, <c>false</c> otherwise.</returns>
+        /// <param name="hWnd">H window.</param>
+        /// <param name="id">Identifier.</param>
+        /// <param name="fsModifiers">Fs modifiers.</param>
+        /// <param name="vk">Vk.</param>
+        [DllImport("User32")]
+        private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
+
+        /// <summary>
+        /// Unregisters the hot key.
+        /// </summary>
+        /// <returns><c>true</c>, if hot key was unregistered, <c>false</c> otherwise.</returns>
+        /// <param name="hWnd">H window.</param>
+        /// <param name="id">Identifier.</param>
+        [DllImport("User32")]
+        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
+        /// <summary>
+        /// The mod shift.
+        /// </summary>
+        private const int MOD_SHIFT = 0x4;
+
+        /// <summary>
+        /// The mod control.
+        /// </summary>
+        private const int MOD_CONTROL = 0x2;
+
+        /// <summary>
+        /// The mod alternate.
+        /// </summary>
+        private const int MOD_ALT = 0x1;
+
+        /// <summary>
+        /// The wm hotkey.
+        /// </summary>
+        private static int WM_HOTKEY = 0x0312;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:HotkeyRun.MainForm"/> class.
@@ -95,7 +136,7 @@ namespace HotkeyRun
                 this.programListBox.DataSource = this.settingsData.CommandArgumentList;
             }
 
-            // Active/Inactive
+            // Check active or inactive
             if (this.settingsData.EnableHotkeys)
             {
                 // Check active
@@ -142,7 +183,51 @@ namespace HotkeyRun
         /// <param name="e">Event arguments.</param>
         private void OnRadioButtonClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            /* TODO Improve Register/Unregister of hotkeys [This can be made more efficient by keeping a good track, especially with recurring calls due to checkboxes, et cetera] */
+
+            /* TODO // Set bold font
+            this.activeRadioButton.Font = new Font(this.activeRadioButton.Font, this.activeRadioButton.Checked ? FontStyle.Bold : FontStyle.Regular);
+            this.inactiveRadioButton.Font = new Font(this.inactiveRadioButton.Font, !this.activeRadioButton.Checked ? FontStyle.Bold : FontStyle.Regular);
+            */
+
+            // Try to unregister the key
+            try
+            {
+                // Unregister the hotkey
+                UnregisterHotKey(this.Handle, 0);
+            }
+            catch (Exception ex)
+            {
+                // Let it fall through
+            }
+
+            // Try to register the key
+            try
+            {
+                if (this.keyComboBox.SelectedItem.ToString() != "None")
+                {
+                    // Register the hotkey
+                    RegisterHotKey(this.Handle, 0, (this.controlCheckBox.Checked ? MOD_CONTROL : 0) + (this.altCheckBox.Checked ? MOD_ALT : 0) + (this.shiftCheckBox.Checked ? MOD_SHIFT : 0), Convert.ToInt16((Keys)Enum.Parse(typeof(Keys), this.keyComboBox.SelectedItem.ToString(), true)));
+                }
+            }
+            catch (Exception ex)
+            {
+                // Let it fall through
+            }
+        }
+
+        /// <summary>
+        /// Windows the proc.
+        /// </summary>
+        /// <param name="m">M.</param>
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            if (m.Msg == WM_HOTKEY)
+            {
+                // TODO Process commands
+            }
         }
 
         /// <summary>

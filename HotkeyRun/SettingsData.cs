@@ -50,7 +50,7 @@ namespace PublicDomainWeekly
         /// Gets or sets the hotkey.
         /// </summary>
         /// <value>The hotkey.</value>
-        public string Hotkey { get; set; } = string.Empty;
+        public string Hotkey { get; set; } = "None";
 
         /// <summary>
         /// Gets or sets the command argument list.

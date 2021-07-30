@@ -70,9 +70,6 @@ namespace HotkeyRun
 
             // Load settings from disk
             this.settingsData = this.LoadSettingsFile(this.settingsDataPath);
-
-            // Update GUI to reflect settings data
-            this.SettingsDataToGui();
         }
 
         /// <summary>
@@ -141,7 +138,7 @@ namespace HotkeyRun
         /// <summary>
         /// Handles the radio button click event.
         /// </summary>
-        /// <param name="sender">S/// <param name="sender">Sender object.</param>
+        /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnRadioButtonClick(object sender, EventArgs e)
         {
@@ -151,7 +148,7 @@ namespace HotkeyRun
         /// <summary>
         /// Handles the browse button click event.
         /// </summary>
-        /// <param name="sender">S/// <param name="sender">Sender object.</param>
+        /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnBrowseButtonClick(object sender, EventArgs e)
         {
@@ -172,7 +169,7 @@ namespace HotkeyRun
         /// <summary>
         /// Handles the add button click event.
         /// </summary>
-        /// <param name="sender">S/// <param name="sender">Sender object.</param>
+        /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnAddButtonClick(object sender, EventArgs e)
         {
@@ -189,8 +186,6 @@ namespace HotkeyRun
             // Add to list box
             this.programListBox.Items.Add($"{this.commandTextBox.Text}{"\t"}{this.argumentTextBox.Text}");
 
-            // TODO Add to settings data
-
             // Reset text boxes
             this.commandTextBox.ResetText();
             this.argumentTextBox.ResetText();
@@ -205,7 +200,7 @@ namespace HotkeyRun
         /// <summary>
         /// Handles the remove button click event.
         /// </summary>
-        /// <param name="sender">S/// <param name="sender">Sender object.</param>
+        /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnRemoveButtonClick(object sender, EventArgs e)
         {
@@ -215,7 +210,7 @@ namespace HotkeyRun
         /// <summary>
         /// Handles the options tool strip menu item drop down item clicked event.
         /// </summary>
-        /// <param name="sender">S/// <param name="sender">Sender object.</param>
+        /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnOptionsToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
@@ -232,7 +227,7 @@ namespace HotkeyRun
         /// <summary>
         /// Handles the new tool strip menu item click event.
         /// </summary>
-        /// <param name="sender">S/// <param name="sender">Sender object.</param>
+        /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnNewToolStripMenuItemClick(object sender, EventArgs e)
         {
@@ -242,7 +237,7 @@ namespace HotkeyRun
         /// <summary>
         /// Handles the open tool strip menu item click event.
         /// </summary>
-        /// <param name="sender">S/// <param name="sender">Sender object.</param>
+        /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnOpenToolStripMenuItemClick(object sender, EventArgs e)
         {
@@ -252,59 +247,9 @@ namespace HotkeyRun
         /// <summary>
         /// Handles the save tool strip menu item click event.
         /// </summary>
-        /// <param name="sender">S/// <param name="sender">Sender object.</param>
+        /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnSaveToolStripMenuItemClick(object sender, EventArgs e)
-        {
-            // TODO Add code
-        }
-
-        /// <summary>
-        /// Handles the exit tool strip menu item click event.
-        /// </summary>
-        /// <param name="sender">S/// <param name="sender">Sender object.</param>
-        /// <param name="e">Event arguments.</param>
-        private void OnExitToolStripMenuItemClick(object sender, EventArgs e)
-        {
-            // TODO Add code
-        }
-
-        /// <summary>
-        /// Handles the weekly releases public domain weeklycom tool strip menu item click event.
-        /// </summary>
-        /// <param name="sender">S/// <param name="sender">Sender object.</param>
-        /// <param name="e">Event arguments.</param>
-        private void OnWeeklyReleasesPublicDomainWeeklycomToolStripMenuItemClick(object sender, EventArgs e)
-        {
-            // TODO Add code
-        }
-
-        /// <summary>
-        /// Handles the original thread donation codercom tool strip menu item click event.
-        /// </summary>
-        /// <param name="sender">S/// <param name="sender">Sender object.</param>
-        /// <param name="e">Event arguments.</param>
-        private void OnOriginalThreadDonationCodercomToolStripMenuItemClick(object sender, EventArgs e)
-        {
-            // TODO Add code
-        }
-
-        /// <summary>
-        /// Handles the source code githubcom tool strip menu item click event.
-        /// </summary>
-        /// <param name="sender">S/// <param name="sender">Sender object.</param>
-        /// <param name="e">Event arguments.</param>
-        private void OnSourceCodeGithubcomToolStripMenuItemClick(object sender, EventArgs e)
-        {
-            // TODO Add code
-        }
-
-        /// <summary>
-        /// Handles the about tool strip menu item click event.
-        /// </summary>
-        /// <param name="sender">S/// <param name="sender">Sender object.</param>
-        /// <param name="e">Event arguments.</param>
-        private void OnAboutToolStripMenuItemClick(object sender, EventArgs e)
         {
             // TODO Add code
         }
@@ -356,8 +301,8 @@ namespace HotkeyRun
         /// <summary>
         /// Ons the main form form closing.
         /// </summary>
-        /// <param name="sender">Sender.</param>
-        /// <param name="e">E.</param>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
         private void OnMainFormFormClosing(object sender, FormClosingEventArgs e)
         {
             // Set settings from GUI
@@ -365,6 +310,70 @@ namespace HotkeyRun
 
             // Save to disk
             this.SaveSettingsFile(this.settingsDataPath, this.settingsData);
+        }
+
+        /// <summary>
+        /// Handles the main form load event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnMainFormLoad(object sender, EventArgs e)
+        {
+            // Update GUI to reflect settings data
+            this.SettingsDataToGui();
+
+            // Focus command text box
+            this.commandTextBox.Focus();
+        }
+
+        /// <summary>
+        /// Handles the weekly releases public domain weeklycom tool strip menu item click event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnWeeklyReleasesPublicDomainWeeklycomToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            // TODO Add code
+        }
+
+        /// <summary>
+        /// Handles the original thread donation codercom tool strip menu item click event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnOriginalThreadDonationCodercomToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            // TODO Add code
+        }
+
+        /// <summary>
+        /// Handles the source code githubcom tool strip menu item click event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnSourceCodeGithubcomToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            // TODO Add code
+        }
+
+        /// <summary>
+        /// Handles the about tool strip menu item click event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnAboutToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            // TODO Add code
+        }
+
+        /// <summary>
+        /// Handles the exit tool strip menu item click event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnExitToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            // TODO Add code
         }
     }
 }

@@ -551,6 +551,7 @@ namespace HotkeyRun
         	this.Name = "MainForm";
         	this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
         	this.Text = "HotkeyRun";
+        	this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnMainFormFormClosing);
         	this.mainMenuStrip.ResumeLayout(false);
         	this.mainMenuStrip.PerformLayout();
         	this.mainStatusStrip.ResumeLayout(false);

@@ -112,7 +112,22 @@ namespace HotkeyRun
         /// </summary>
         private void GuiToSettingsSata()
         {
-            // TODO Add code
+            // Topmost
+            this.settingsData.TopMost = this.alwaysOnTopToolStripMenuItem.Checked;
+
+            // Modifier checkboxes
+            this.settingsData.Control = this.controlCheckBox.Checked;
+            this.settingsData.Alt = this.altCheckBox.Checked;
+            this.settingsData.Shift = this.shiftCheckBox.Checked;
+
+            // Hotkey
+            this.settingsData.Hotkey = this.keyComboBox.SelectedItem.ToString();
+
+            // Command list box
+            this.settingsData.CommandArgumentList = this.programListBox.Items.Cast<string>().ToList();
+
+            // Active/Inactive
+            this.settingsData.EnableHotkeys = this.activeRadioButton.Checked;
         }
 
         /// <summary>

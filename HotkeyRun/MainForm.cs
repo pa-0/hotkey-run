@@ -64,7 +64,18 @@ namespace HotkeyRun
         /// <param name="e">Event arguments.</param>
         private void OnBrowseButtonClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Set properties
+            this.openFileDialog.FileName = string.Empty;
+            this.openFileDialog.DefaultExt = "exe";
+            this.openFileDialog.Filter = "EXE Files|*.exe|All files (*.*)|*.*";
+            this.openFileDialog.Title = "Browse for executable";
+
+            // Show open file dialog
+            if (this.openFileDialog.ShowDialog() == DialogResult.OK && this.openFileDialog.FileName.Length > 0)
+            {
+                // Add to text box
+                this.commandTextBox.Text = this.openFileDialog.FileName;
+            }
         }
 
         /// <summary>

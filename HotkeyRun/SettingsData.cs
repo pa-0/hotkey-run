@@ -26,25 +26,25 @@ namespace PublicDomainWeekly
         /// <summary>
         /// The top most.
         /// </summary>
-        public bool TopMost { get; set; } = true;
+        public bool TopMost { get; set; } = false;
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="T:PublicDomainWeekly.SettingsData"/> is control.
         /// </summary>
         /// <value><c>true</c> if control; otherwise, <c>false</c>.</value>
-        public bool Control { get; set; } = true;
+        public bool Control { get; set; } = false;
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="T:PublicDomainWeekly.SettingsData"/> is alternate.
         /// </summary>
         /// <value><c>true</c> if alternate; otherwise, <c>false</c>.</value>
-        public bool Alt { get; set; } = true;
+        public bool Alt { get; set; } = false;
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="T:PublicDomainWeekly.SettingsData"/> is shift.
         /// </summary>
         /// <value><c>true</c> if shift; otherwise, <c>false</c>.</value>
-        public bool Shift { get; set; } = true;
+        public bool Shift { get; set; } = false;
 
         /// <summary>
         /// Gets or sets the hotkey.

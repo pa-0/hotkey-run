@@ -70,6 +70,49 @@ namespace HotkeyRun
 
             // Load settings from disk
             this.settingsData = this.LoadSettingsFile(this.settingsDataPath);
+
+            // Update GUI to reflect settings data
+            this.SettingsDataToGui();
+        }
+
+        /// <summary>
+        /// Settingses the data to GUI.
+        /// </summary>
+        private void SettingsDataToGui()
+        {
+            // Topmost
+            this.alwaysOnTopToolStripMenuItem.Checked = this.settingsData.TopMost;
+
+            // Modifier checkboxes
+            this.controlCheckBox.Checked = this.settingsData.Control;
+            this.altCheckBox.Checked = this.settingsData.Alt;
+            this.shiftCheckBox.Checked = this.settingsData.Shift;
+
+            // Hotkey
+            this.keyComboBox.SelectedItem = this.settingsData.Hotkey;
+
+            // Command list box
+            this.programListBox.Items.AddRange(new object[] { this.settingsData.CommandArgumentList });
+
+            // Active/Inactive
+            if (this.settingsData.EnableHotkeys)
+            {
+                // Check active
+                this.activeRadioButton.Checked = true;
+            }
+            else
+            {
+                // Check inactive
+                this.inactiveRadioButton.Checked = true;
+            }
+        }
+
+        /// <summary>
+        /// GUIs to settings sata.
+        /// </summary>
+        private void GuiToSettingsSata()
+        {
+            // TODO Add code
         }
 
         /// <summary>

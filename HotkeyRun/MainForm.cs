@@ -91,8 +91,12 @@ namespace HotkeyRun
             // Hotkey
             this.keyComboBox.SelectedItem = this.settingsData.Hotkey;
 
-            // Command list box
-            this.programListBox.Items.AddRange(new object[] { this.settingsData.CommandArgumentList });
+            // Check for command argument list items
+            if (this.settingsData.CommandArgumentList.Count > 0)
+            {
+                // Set list box
+                this.programListBox.DataSource = this.settingsData.CommandArgumentList;
+            }
 
             // Active/Inactive
             if (this.settingsData.EnableHotkeys)
@@ -123,8 +127,12 @@ namespace HotkeyRun
             // Hotkey
             this.settingsData.Hotkey = this.keyComboBox.SelectedItem.ToString();
 
-            // Command list box
-            this.settingsData.CommandArgumentList = this.programListBox.Items.Cast<string>().ToList();
+            // Check for items
+            if (this.programListBox.Items.Count > 0)
+            {
+                // Set nito settings data
+                this.settingsData.CommandArgumentList = this.programListBox.Items.OfType<String>().ToList();
+            }
 
             // Active/Inactive
             this.settingsData.EnableHotkeys = this.activeRadioButton.Checked;
@@ -352,7 +360,11 @@ namespace HotkeyRun
         /// <param name="e">E.</param>
         private void OnMainFormFormClosing(object sender, FormClosingEventArgs e)
         {
-            // TODO Add code
+            // Set settings from GUI
+            this.GuiToSettingsSata();
+
+            // Save to disk
+            this.SaveSettingsFile(this.settingsDataPath, this.settingsData);
         }
     }
 }

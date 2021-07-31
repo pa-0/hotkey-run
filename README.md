@@ -21,7 +21,7 @@ v0.1.0:
 - Remember GUI settings.
 - Load/Save settings data from file.
 
-Day #209, Week #30 @ July 28, 2021
+Day #212, Week #30 @ July 31, 2021
 
 ==========
 

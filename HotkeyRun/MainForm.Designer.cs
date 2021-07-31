@@ -501,7 +501,7 @@ namespace HotkeyRun
             this.argumentTextBox.Location = new System.Drawing.Point(3, 93);
             this.argumentTextBox.Name = "argumentTextBox";
             this.argumentTextBox.Size = new System.Drawing.Size(282, 20);
-            this.argumentTextBox.TabIndex = 8;
+            this.argumentTextBox.TabIndex = 6;
             // 
             // tableLayoutPanel2
             // 

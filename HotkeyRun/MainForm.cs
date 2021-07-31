@@ -205,7 +205,7 @@ namespace HotkeyRun
             // Try to register the key
             try
             {
-                if (this.keyComboBox.SelectedItem.ToString() != "None")
+                if (this.activeRadioButton.Checked && this.keyComboBox.SelectedItem.ToString() != "None")
                 {
                     // Register the hotkey
                     RegisterHotKey(this.Handle, 0, (this.controlCheckBox.Checked ? MOD_CONTROL : 0) + (this.altCheckBox.Checked ? MOD_ALT : 0) + (this.shiftCheckBox.Checked ? MOD_SHIFT : 0), Convert.ToInt16((Keys)Enum.Parse(typeof(Keys), this.keyComboBox.SelectedItem.ToString(), true)));
@@ -450,6 +450,9 @@ namespace HotkeyRun
         {
             // Update GUI to reflect settings data
             this.SettingsDataToGui();
+
+            // HACK Trigger active radio button event [DEBUG]
+            this.OnRadioButtonClick(this.activeRadioButton, null);
 
             // Focus command text box
             this.commandTextBox.Focus();

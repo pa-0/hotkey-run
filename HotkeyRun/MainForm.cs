@@ -315,7 +315,15 @@ namespace HotkeyRun
         /// <param name="e">Event arguments.</param>
         private void OnRemoveButtonClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Check for a selected item
+            if (this.programListBox.SelectedIndex > -1)
+            {
+                // Remove from settings data
+                this.settingsData.CommandArgumentList.Remove(this.programListBox.SelectedItem.ToString());
+
+                // Remove from list box
+                this.programListBox.Items.RemoveAt(this.programListBox.SelectedIndex);
+            }
         }
 
         /// <summary>

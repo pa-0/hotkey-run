@@ -509,7 +509,8 @@ namespace HotkeyRun
         /// <param name="e">Event arguments.</param>
         private void OnWeeklyReleasesPublicDomainWeeklycomToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Open our public domain website
+            Process.Start("https://publicdomainweekly.com");
         }
 
         /// <summary>

@@ -7,6 +7,7 @@ namespace HotkeyRun
 {
     // Directives
     using System;
+    using System.Diagnostics;
     using System.Drawing;
     using System.IO;
     using System.Linq;
@@ -133,7 +134,7 @@ namespace HotkeyRun
             if (this.settingsData.CommandArgumentList.Count > 0)
             {
                 // Set list box
-                this.programListBox.DataSource = this.settingsData.CommandArgumentList;
+                this.programListBox.Items.AddRange(this.settingsData.CommandArgumentList.OfType<string>().ToArray<object>());
             }
 
             // Check active or inactive
@@ -226,7 +227,32 @@ namespace HotkeyRun
 
             if (m.Msg == WM_HOTKEY)
             {
-                // TODO Process commands
+                // Start all in list
+                foreach (var item in this.programListBox.Items)
+                {
+                    // Split by tab
+                    var commandArgument = item.ToString().Split("\t".ToCharArray());
+
+                    try
+                    {
+                        // TODO Start via process [Can be improcess i.e. by StartInfo]
+                        if (commandArgument.Length == 1)
+                        {
+                            // Command
+                            Process.Start(commandArgument[0]);
+                        }
+                        else
+                        {
+                            // Command + arguments
+                            Process.Start(commandArgument[0], commandArgument[1]);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Advise user
+                        MessageBox.Show($"Command: {commandArgument[0]}{Environment.NewLine}{(commandArgument.Length > 1 ? $"Arguments: {commandArgument[1]}{Environment.NewLine}" : string.Empty)}{Environment.NewLine}Message:{Environment.NewLine}{ex.Message}", "Process start eror", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
 
@@ -269,7 +295,7 @@ namespace HotkeyRun
             }
 
             // Add to list box
-            this.programListBox.Items.Add($"{this.commandTextBox.Text}{"\t"}{this.argumentTextBox.Text}");
+            this.programListBox.Items.Add($"{this.commandTextBox.Text}{(this.argumentTextBox.Text.Length > 0 ? $"{"\t"}{this.argumentTextBox.Text}" : string.Empty)}");
 
             // Reset text boxes
             this.commandTextBox.ResetText();

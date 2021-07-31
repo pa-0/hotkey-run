@@ -498,6 +498,9 @@ namespace HotkeyRun
             // HACK Trigger active radio button event [DEBUG]
             this.OnRadioButtonClick(this.activeRadioButton, null);
 
+            // Hack Topmost on start [DEBUG]
+            this.TopMost = this.settingsData.TopMost;
+
             // Focus command text box
             this.commandTextBox.Focus();
         }

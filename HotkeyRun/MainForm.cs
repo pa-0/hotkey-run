@@ -350,7 +350,17 @@ namespace HotkeyRun
         /// <param name="e">Event arguments.</param>
         private void OnNewToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Clear list box
+            this.programListBox.Items.Clear();
+
+            // Create new settings file
+            this.SaveSettingsFile(this.settingsDataPath, new SettingsData());
+
+            // Load settings from disk
+            this.settingsData = this.LoadSettingsFile(this.settingsDataPath);
+
+            // Refresh GUI
+            this.SettingsDataToGui();
         }
 
         /// <summary>

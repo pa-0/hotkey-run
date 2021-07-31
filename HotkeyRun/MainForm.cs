@@ -380,7 +380,29 @@ namespace HotkeyRun
         /// <param name="e">Event arguments.</param>
         private void OnSaveToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Reset save file dialog
+            this.saveFileDialog.FileName = string.Empty;
+
+            // Open save file dialog
+            if (this.saveFileDialog.ShowDialog() == DialogResult.OK && this.saveFileDialog.FileName.Length > 0)
+            {
+                try
+                {
+                    // GUI to settings data
+                    this.GuiToSettingsSata();
+
+                    // Save to disk
+                    this.SaveSettingsFile(this.saveFileDialog.FileName, this.settingsData);
+                }
+                catch (Exception exception)
+                {
+                    // Inform user
+                    MessageBox.Show($"Error when saving to \"{Path.GetFileName(this.saveFileDialog.FileName)}\":{Environment.NewLine}{exception.Message}", "Save file error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                // Inform user
+                MessageBox.Show($"Saved current settings data to \"{Path.GetFileName(this.saveFileDialog.FileName)}\"", "File saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         /// <summary>
